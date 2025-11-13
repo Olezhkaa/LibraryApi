@@ -5,13 +5,8 @@ using System.Text.Json.Serialization;
 namespace LibraryApi.Models
 {
     [Table("books")]
-    public class Book
+    public class Book : BaseModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(200, MinimumLength = 1)]
         [Column("title")]
@@ -30,6 +25,12 @@ namespace LibraryApi.Models
         [Column("description")]
         [StringLength(1000)]
         public string? Description { get; set; }
+
+        public virtual ICollection<CollectionBook> CollectionBooks { get; set; } = new List<CollectionBook>();
+        public virtual ICollection<FavoriteBook> FavoriteBooks { get; set; } = new List<FavoriteBook>();
+        public virtual ICollection<BookImage> BookImages { get; set; } = new List<BookImage>();
+
+
 
         [JsonIgnore]
         public virtual Author? Author { get; set; }

@@ -4,13 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LibraryApi.Models
 {
     [Table("genres")]
-    public class Genre
+    public class Genre : BaseModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(200, MinimumLength = 1)]
         [Column("title")]

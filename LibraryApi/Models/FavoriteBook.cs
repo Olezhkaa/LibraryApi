@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace LibraryApi.Models
 {
-    [Table("collection_books")]
-    public class CollectionBook : BaseModel
+    [Table("favorite_books")]
+    public class FavoriteBook : BaseModel
     {
         [Required]
         [Range(1, int.MaxValue)]
@@ -17,10 +17,9 @@ namespace LibraryApi.Models
         [Column("book_id")]
         public int BookId { get; set; }
 
-        [Required]
         [Range(1, int.MaxValue)]
-        [Column("collection_id")]
-        public int CollectionId { get; set; }
+        [Column("priority_in_list")]
+        public int PriorityInList { get; set; }
 
         // Навигационные свойства
         [JsonIgnore] // Чтобы избежать циклических ссылок при сериализации
@@ -29,16 +28,12 @@ namespace LibraryApi.Models
         [JsonIgnore]
         public virtual User? User { get; set; }
 
-        [JsonIgnore]
-        public virtual Collection? Collection { get; set; }
+        protected FavoriteBook() { }
 
-        protected CollectionBook() { }
-
-        public CollectionBook(int userId, int bookId, int collectionId)
+        public FavoriteBook(int userId, int bookId)
         {
             UserId = userId;
             BookId = bookId;
-            CollectionId = collectionId;
         }
     }
 }

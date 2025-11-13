@@ -4,13 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LibraryApi.Models
 {
     [Table("authors")]
-    public class Author
+    public class Author : BaseModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(100, MinimumLength = 2)]
         [Column("first_name")]
@@ -41,6 +36,8 @@ namespace LibraryApi.Models
 
         // Навигационные свойства
         public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+        public virtual ICollection<AuthorImage> AuthorImages { get; set; } = new List<AuthorImage>();
+
 
         // Вычисляемое свойство (не сохраняется в БД)
         [NotMapped]
