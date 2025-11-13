@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5686T6UnZG4=",
+  "dgSpecHash": "CUz5I0GiMFU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
+  "projectFilePath": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OlegFadeev\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.1\\microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
     "C:\\Users\\OlegFadeev\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.1\\microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",
@@ -25,11 +25,7 @@
     "C:\\Users\\OlegFadeev\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.6.2\\swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "C:\\Users\\OlegFadeev\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.6.2\\swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
     "C:\\Users\\OlegFadeev\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.6.2\\swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
-    "C:\\Users\\OlegFadeev\\.nuget\\packages\\system.diagnostics.diagnosticsource\\9.0.1\\system.diagnostics.diagnosticsource.9.0.1.nupkg.sha512",
-    "C:\\Users\\OlegFadeev\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.20\\microsoft.netcore.app.ref.8.0.20.nupkg.sha512",
-    "C:\\Users\\OlegFadeev\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.20\\microsoft.windowsdesktop.app.ref.8.0.20.nupkg.sha512",
-    "C:\\Users\\OlegFadeev\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.20\\microsoft.aspnetcore.app.ref.8.0.20.nupkg.sha512",
-    "C:\\Users\\OlegFadeev\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.20\\microsoft.netcore.app.host.win-x64.8.0.20.nupkg.sha512"
+    "C:\\Users\\OlegFadeev\\.nuget\\packages\\system.diagnostics.diagnosticsource\\9.0.1\\system.diagnostics.diagnosticsource.9.0.1.nupkg.sha512"
   ],
   "logs": []
 }
