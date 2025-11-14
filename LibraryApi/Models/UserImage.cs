@@ -29,23 +29,18 @@ namespace LibraryApi.Models
         [Column("file_size")]
         public long FileSize { get; set; }
 
-        [Required]
-        [Column("is_main")]
-        public bool IsMain { get; set; } = false;
-
         [JsonIgnore]
         public virtual User? User { get; set; }
 
         protected UserImage() { }
 
-        public UserImage(int userId, string fileName, string contentType, byte[] fileData, bool isMain = false)
+        public UserImage(int userId, string fileName, string contentType, byte[] fileData)
         {
             UserId = userId;
             FileName = fileName;
             ContentType = contentType;
             FileData = fileData;
             FileSize = fileData.Length;
-            IsMain = isMain;
         }
     }
 }

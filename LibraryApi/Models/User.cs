@@ -36,6 +36,9 @@ namespace LibraryApi.Models
         public virtual ICollection<FavoriteBook> FavoriteBooks { get; set; } = new List<FavoriteBook>();
         public virtual ICollection<UserImage> UserImages { get; set; } = new List<UserImage>();
 
+        // Вычисляемое свойство (не сохраняется в БД)
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}";
 
         protected User() { }
 
