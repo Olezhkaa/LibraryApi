@@ -8,29 +8,29 @@ namespace LibraryApi.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
 
-        public DbSet<User>? Users { get; set; }
-        public DbSet<Collection>? Collections { get; set; }
-        public DbSet<FavoriteBook>? FavouriteBooks { get; set; }
-        public DbSet<Book>? Books { get; set; }
-        public DbSet<Genre>? Genres { get; set; }
-        public DbSet<CollectionBook>? CollectionBooks { get; set; }
-        public DbSet<Author>? Authors { get; set; }
-        public DbSet<AuthorImage>? AuthorImages { get; set; }
-        public DbSet<BookImage>? BookImages { get; set; }
-        public DbSet<UserImage>? UserImages { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Collection> Collections { get; set; } = null!;
+        public DbSet<FavoriteBook> FavouriteBooks { get; set; } = null!;
+        public DbSet<Book> Books { get; set; } = null!;
+        public DbSet<Genre> Genres { get; set; } = null!;
+        public DbSet<CollectionBook> CollectionBooks { get; set; } = null!;
+        public DbSet<Author> Authors { get; set; } = null!;
+        public DbSet<AuthorImage> AuthorImages { get; set; } = null!;
+        public DbSet<BookImage> BookImages { get; set; } = null!;
+        public DbSet<UserImage> UserImages { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             //Конфигурация для всех наследников BaseModel
-            foreach (var entiryType in modelBuilder.Model.GetEntityTypes()
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes()
             .Where(e => e.ClrType.IsSubclassOf(typeof(BaseModel))))
             {
-                modelBuilder.Entity(entiryType.ClrType)
+                modelBuilder.Entity(entityType.ClrType)
                 .Property(nameof(BaseModel.CreatedAt))
                 .HasDefaultValueSql("NOW()");
 
-                modelBuilder.Entity(entiryType.ClrType)
+                modelBuilder.Entity(entityType.ClrType)
                 .Property(nameof(BaseModel.UpdatedAt))
                 .HasDefaultValueSql("NOW()")
                 .ValueGeneratedOnAddOrUpdate();
@@ -38,7 +38,7 @@ namespace LibraryApi.Data
 
             modelBuilder.Entity<Genre>(entity =>
             {
-                entity.HasIndex(g => g.Title);
+                entity.HasIndex(g => g.Title).IsUnique();
             });
 
             modelBuilder.Entity<Author>(entity =>
@@ -67,8 +67,10 @@ namespace LibraryApi.Data
                     .OnDelete(DeleteBehavior.Cascade);
 
                 // Ограничения
-                entity.Property(ai => ai.FileSize)
-                      .HasAnnotation("Range", new[] { 1L, 10L * 1024L * 1024L }); // Макс 10MB
+                entity.ToTable(t => t.HasCheckConstraint(
+                   "CK_AuthorImage_FileSize", 
+                   "\"file_size\" BETWEEN 1 AND 10485760"
+                ));
 
             });
 
@@ -103,8 +105,10 @@ namespace LibraryApi.Data
                     .OnDelete(DeleteBehavior.Cascade);
 
                 // Ограничения
-                entity.Property(bi => bi.FileSize)
-                      .HasAnnotation("Range", new[] { 1L, 10L * 1024L * 1024L }); // Макс 10MB
+                entity.ToTable(t => t.HasCheckConstraint(
+                   "CK_BookImage_FileSize", 
+                   "\"file_size\" BETWEEN 1 AND 10485760"
+                ));
 
             });
 
@@ -128,14 +132,16 @@ namespace LibraryApi.Data
                     .OnDelete(DeleteBehavior.Cascade);
 
                 // Ограничения
-                entity.Property(bi => bi.FileSize)
-                      .HasAnnotation("Range", new[] { 1L, 10L * 1024L * 1024L }); // Макс 10MB
+                entity.ToTable(t => t.HasCheckConstraint(
+                   "CK_UserImage_FileSize", 
+                   "\"file_size\" BETWEEN 1 AND 10485760"
+                ));
 
             });
 
             modelBuilder.Entity<Collection>(entity =>
             {
-                entity.HasIndex(c => c.Title);
+                entity.HasIndex(c => c.Title).IsUnique();
             });
 
             modelBuilder.Entity<CollectionBook>(entity =>
@@ -143,6 +149,7 @@ namespace LibraryApi.Data
                 entity.HasIndex(cb => cb.UserId);
                 entity.HasIndex(cb => cb.BookId);
                 entity.HasIndex(cb => cb.CollectionId);
+                entity.HasIndex(cb => new { cb.UserId, cb.BookId }).IsUnique();
 
                 entity.HasOne(cb => cb.User)
                     .WithMany(u => u.CollectionBooks)
@@ -164,6 +171,8 @@ namespace LibraryApi.Data
             {
                 entity.HasIndex(cb => cb.UserId);
                 entity.HasIndex(cb => cb.BookId);
+                entity.HasIndex(cb => new { cb.UserId, cb.BookId }).IsUnique();
+
 
                 entity.HasOne(cb => cb.User)
                     .WithMany(u => u.FavoriteBooks)

@@ -41,7 +41,7 @@ namespace LibraryApi.Models
 
         // Вычисляемое свойство (не сохраняется в БД)
         [NotMapped]
-        public string FullName => $"{FirstName} {LastName}";
+        public string FullName { get; private set; } = string.Empty;
 
         protected Author() { }
 
