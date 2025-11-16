@@ -4,6 +4,7 @@ using LibraryApi.Repositories.Interfaces;
 using LibraryApi.Repositories.Implementations;
 using LibraryApi.Services.Interfaces;
 using LibraryApi.Services;
+using LibraryApi.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //Репозитории
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 //Сервисы
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 
 builder.Services.AddControllers();

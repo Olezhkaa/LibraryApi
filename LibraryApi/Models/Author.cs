@@ -16,23 +16,19 @@ namespace LibraryApi.Models
         [Column("last_name")]
         public string LastName { get; set; } = string.Empty;
 
-        [StringLength(100, MinimumLength = 2)]
+        [StringLength(100)]
         [Column("middle_name")]
-        public string MiddleName { get; set; } = string.Empty;
+        public string? MiddleName { get; set; } = string.Empty;
 
         [Column("date_of_birth")]
-        public DateTime? DateOfBirh { get; set; }
+        public DateOnly? DateOfBirh { get; set; }
 
         [Column("date_of_death")]
-        public DateTime? DateOfDeath { get; set; }
+        public DateOnly? DateOfDeath { get; set; }
 
-        [StringLength(100, MinimumLength = 2)]
+        [StringLength(100)]
         [Column("country")]
-        public string Country { get; set; } = string.Empty;
-
-        // [Column("created_at")]
-        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        // public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string? Country { get; set; } = string.Empty;
 
         // Навигационные свойства
         public virtual ICollection<Book> Books { get; set; } = new List<Book>();
