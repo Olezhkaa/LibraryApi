@@ -34,6 +34,10 @@ namespace LibraryApi.Data
                 .Property(nameof(BaseModel.UpdatedAt))
                 .HasDefaultValueSql("NOW()")
                 .ValueGeneratedOnAddOrUpdate();
+
+                modelBuilder.Entity(entityType.ClrType)
+                .Property(nameof(BaseModel.IsActive))
+                .HasDefaultValue(true);
             }
 
             modelBuilder.Entity<Genre>(entity =>
@@ -200,6 +204,6 @@ namespace LibraryApi.Data
             }
 
             return await base.SaveChangesAsync(cancellationToken);
-        }
+        }       
     }
 }

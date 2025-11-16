@@ -18,6 +18,9 @@ namespace LibraryApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+        [Column("is_active")]
+        public bool IsActive { get; set; } = true;
+
         public void UpdateTimestamps()
         {
             UpdatedAt = DateTime.UtcNow;

@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using LibraryApi.Data;
+using LibraryApi.Repositories.Interfaces;
+using LibraryApi.Repositories.Implementations;
+using LibraryApi.Services.Interfaces;
+using LibraryApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add services to the container.
+//Репозитории
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+
+//Сервисы
+builder.Services.AddScoped<IGenreService, GenreService>();
 
 
 builder.Services.AddControllers();
