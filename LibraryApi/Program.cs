@@ -17,11 +17,14 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
+
 
 //Сервисы
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ICollectionService, CollectionService>();
 
 
 builder.Services.AddControllers();

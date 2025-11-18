@@ -11,7 +11,7 @@ namespace LibraryApi.DTOs.Authors
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string? MiddleName { get; set; } = string.Empty;
-        public DateOnly? DateOfBirh { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
         public DateOnly? DateOfDeath { get; set; }
         public string? Country { get; set; } = string.Empty;
     }

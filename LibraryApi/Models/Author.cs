@@ -21,7 +21,7 @@ namespace LibraryApi.Models
         public string? MiddleName { get; set; } = string.Empty;
 
         [Column("date_of_birth")]
-        public DateOnly? DateOfBirh { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
 
         [Column("date_of_death")]
         public DateOnly? DateOfDeath { get; set; }

@@ -54,9 +54,9 @@ namespace LibraryApi.Repositories.Implementations
                 .Include(b => b.Author)
                 .Include(b => b.Genre)
                 .Where(b => b.IsActive && (
-                    b.Title.Contains(searchTerm) ||
-                    b.Author!.FirstName.Contains(searchTerm) ||
-                    b.Author!.LastName.Contains(searchTerm)))
+                    b.Title.ToLower().Contains(searchTerm.ToLower()) ||
+                    b.Author!.FirstName.ToLower().Contains(searchTerm.ToLower()) ||
+                    b.Author!.LastName.ToLower().Contains(searchTerm.ToLower())))
                 .OrderBy(b => b.Title)
                 .ToListAsync();
         }

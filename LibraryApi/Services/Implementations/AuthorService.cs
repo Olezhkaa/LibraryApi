@@ -35,7 +35,7 @@ namespace LibraryApi.Services.Implementations
             )
             {
                 MiddleName = createDto.MiddleName,
-                DateOfBirh = createDto.DateOfBirh,
+                DateOfBirth = createDto.DateOfBirh,
                 DateOfDeath = createDto.DateOfDeath,
                 Country = createDto.Country
             };
@@ -53,7 +53,7 @@ namespace LibraryApi.Services.Implementations
             if (updateDto.LastName != null || updateDto.LastName != "string") author.LastName = updateDto.LastName!;
             if (updateDto.FirstName != null || updateDto.FirstName != "string") author.FirstName = updateDto.FirstName!;
             if (updateDto.MiddleName != null || updateDto.MiddleName != "string") author.MiddleName = updateDto.MiddleName!;
-            if (updateDto.DateOfBirh != null) author.DateOfBirh = updateDto.DateOfBirh!;
+            if (updateDto.DateOfBirh != null) author.DateOfBirth = updateDto.DateOfBirh!;
             if (updateDto.DateOfDeath != null) author.DateOfDeath = updateDto.DateOfDeath!;
             if (updateDto.Country != null || updateDto.LastName != "string") author.Country = updateDto.Country!;
 
@@ -78,7 +78,7 @@ namespace LibraryApi.Services.Implementations
                 LastName = author.LastName,
                 FirstName = author.FirstName,
                 MiddleName = author.MiddleName,
-                DateOfBirh = author.DateOfBirh,
+                DateOfBirth = author.DateOfBirth,
                 DateOfDeath = author.DateOfDeath,
                 Country = author.Country
             };
