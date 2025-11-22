@@ -30,7 +30,7 @@ namespace LibraryApi.Models
 
         [StringLength(100, MinimumLength = 2)]
         [Column("middle_name")]
-        public string MiddleName { get; set; } = string.Empty;
+        public string? MiddleName { get; set; }
 
         public virtual ICollection<CollectionBook> CollectionBooks { get; set; } = new List<CollectionBook>();
         public virtual ICollection<FavoriteBook> FavoriteBooks { get; set; } = new List<FavoriteBook>();
@@ -38,7 +38,7 @@ namespace LibraryApi.Models
 
         // Вычисляемое свойство (не сохраняется в БД)
         [NotMapped]
-         public string FullName { get; private set; } = string.Empty;
+        public string FullName { get; private set; } = string.Empty;
 
         protected User() { }
 

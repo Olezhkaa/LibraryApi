@@ -10,7 +10,7 @@ namespace LibraryApi.DTOs.Books
     public class UpdateBookDto
     {
         [StringLength(200, ErrorMessage = "Название должно быть не более 200 символов")]
-        public string? Title { get; set; } = string.Empty;
+        public string? Title { get; set; }
         public int? AuthorId { get; set; }
         public int? GenreId { get; set; }
 

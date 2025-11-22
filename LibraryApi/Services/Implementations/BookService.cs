@@ -53,11 +53,6 @@ namespace LibraryApi.Services.Implementations
             var created = await _bookRepository.CreateAsync(book);
             var bookResult = await _bookRepository.GetByIdWithDetailsAsync(created.Id);
 
-            if (bookResult == null)
-            {
-                throw new Exception("Книга не найдена после создания");
-            }
-
             return MapToDto(bookResult!);
         }
 
@@ -79,8 +74,8 @@ namespace LibraryApi.Services.Implementations
 
             //Замена полей
             if (updateDto.Title != null || updateDto.Title != "string") book.Title = updateDto.Title!;
-            if (updateDto.AuthorId != null) book.AuthorId = (int)updateDto.AuthorId;
-            if (updateDto.GenreId != null) book.GenreId = (int)updateDto.GenreId;
+            if (updateDto.AuthorId != null || updateDto.AuthorId != 0) book.AuthorId = (int)updateDto.AuthorId!;
+            if (updateDto.GenreId != null || updateDto.AuthorId != 0) book.GenreId = (int)updateDto.GenreId!;
             if (updateDto.Description != null || updateDto.Description != "string") book.Description = updateDto.Description!;
 
             var updated = await _bookRepository.UpdateAsync(book);
@@ -117,9 +112,9 @@ namespace LibraryApi.Services.Implementations
             return new BookDto
             {
                 Id = book.Id,
-                Title = book.Title ?? string.Empty,
-                AuthorFullName = book.Author?.FullName ?? "Неизвесен",
-                GenreTitle = book.Genre?.Title ?? "Без жанра",
+                Title = book.Title,
+                AuthorFullName = book.Author!.FullName,
+                GenreTitle = book.Genre!.Title,
                 Description = book.Description
             };
         }

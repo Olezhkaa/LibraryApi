@@ -23,7 +23,7 @@ namespace LibraryApi.DTOs.Authors
         public DateOnly? DateOfDeath { get; set; }
 
         [StringLength(100, ErrorMessage = "Страна должна быть не более 100 символов")]
-        public string? Country { get; set; } = string.Empty;
+        public string? Country { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
