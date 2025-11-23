@@ -19,6 +19,7 @@ builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICollectionBookRepository, CollectionBookRepository>();
 
 
 //Сервисы
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICollectionBookService, CollectionBookService>();
 
 
 builder.Services.AddControllers();
