@@ -8,7 +8,7 @@ namespace LibraryApi.Repositories.Implementations
 {
     public class CollectionBookRepository : Repository<CollectionBook>, ICollectionBookRepository
     {
-        public CollectionBookRepository(AppDbContext context) : base(context) {}
+        public CollectionBookRepository(AppDbContext context) : base(context) { }
 
         public async Task<IEnumerable<CollectionBook>> SearchBookInCollectionAsync(string searchTermBook, int collectionId, int userId)
         {
@@ -16,7 +16,7 @@ namespace LibraryApi.Repositories.Implementations
                 .Include(cb => cb.User)
                 .Include(cb => cb.Book)
                 .Include(cb => cb.Collection)
-                .Where(cb => cb.IsActive && cb.Book!.Title.ToLower().Contains(searchTermBook.ToLower()) && cb.CollectionId == collectionId)
+                .Where(cb => cb.IsActive && cb.Book!.Title.ToLower().Contains(searchTermBook.ToLower()) && cb.CollectionId == collectionId && cb.UserId == userId)
                 .ToListAsync();
         }
 
@@ -62,12 +62,12 @@ namespace LibraryApi.Repositories.Implementations
 
         public async Task<IEnumerable<CollectionBook>> GetByCollectionIdAsync(int collectionId)
         {
-           return await _dbSet
-                .Include(cb => cb.User)
-                .Include(cb => cb.Book)
-                .Include(cb => cb.Collection)
-                .Where(cb => cb.IsActive && cb.CollectionId == collectionId)
-                .ToListAsync();
+            return await _dbSet
+                 .Include(cb => cb.User)
+                 .Include(cb => cb.Book)
+                 .Include(cb => cb.Collection)
+                 .Where(cb => cb.IsActive && cb.CollectionId == collectionId)
+                 .ToListAsync();
         }
     }
 }

@@ -20,6 +20,7 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICollectionBookRepository, CollectionBookRepository>();
+builder.Services.AddScoped<IFavoriteBookRepository, FavoriteBookRepository>();
 
 
 //Сервисы
@@ -29,6 +30,7 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICollectionBookService, CollectionBookService>();
+builder.Services.AddScoped<IFavoriteBookService, FavoriteBookService>();
 
 
 builder.Services.AddControllers();
