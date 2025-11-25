@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj": {}
+    "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\LibraryApi\\LibraryApi.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj": {
+    "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\LibraryApi\\LibraryApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
+        "projectUniqueName": "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
         "projectName": "LibraryApi",
-        "projectPath": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
+        "projectPath": "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
         "packagesPath": "C:\\Users\\OlegFadeev\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\obj\\",
+        "outputPath": "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\LibraryApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\OlegFadeev\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -52,6 +53,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.12, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -69,6 +74,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -77,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

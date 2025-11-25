@@ -1,11 +1,12 @@
 using LibraryApi.DTOs.CollectionBook;
+using LibraryApi.DTOs.CollectionBooks;
 using LibraryApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users/{userId}/collections")]
     public class CollectionBookController : ControllerBase
     {
         private readonly ICollectionBookService _collectionBookService;
@@ -16,26 +17,52 @@ namespace LibraryApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> GetCollectionBooks(int userId)
         {
-            var collectionBooks = await _collectionBookService.GetAllAsync();
-            return Ok(collectionBooks);
+            var collections = await _collectionBookService.GetByUserIdAsync(userId);
+            return Ok(collections);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CollectionBookDto>> GetById(int id)
+        [HttpGet("{collectionId}/books")]
+        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> GetBooksInCollection(int userId, int collectionId)
         {
-            var collectionBook = await _collectionBookService.GetByIdAsync(id);
-            return collectionBook == null ? NotFound() : Ok(collectionBook);
+            var books = await _collectionBookService.GetByCollectionIdAsync(collectionId);
+
+            // Проверяем что коллекция принадлежит пользователю
+            if (books.Any() && books.First().UserId != userId)
+                return Forbid();
+
+            return Ok(books);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<CollectionBookDto>> Create(CreateCollectionBookDto createDto)
+        [HttpGet("{collectionId}/books/{bookId}")]
+        public async Task<ActionResult<CollectionBookDto>> GetBookInCollection(int userId, int collectionId, int bookId)
+        {
+            var collections = await _collectionBookService.GetByCollectionIdAsync(collectionId);
+            var collectionBook = collections.FirstOrDefault(cb => cb.BookId == bookId);
+
+            if (collectionBook == null)
+                return NotFound();
+
+            if (collectionBook.UserId != userId)
+                return Forbid();
+
+            return Ok(collectionBook);
+        }
+
+        [HttpPost("{collectionId}/books")]
+        public async Task<ActionResult<CollectionBookDto>> AddBookToCollection(
+            int userId, int collectionId, [FromBody] AddBookToCollectionDto addDto)
         {
             try
             {
-                var collectionBook = await _collectionBookService.CreateAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = collectionBook.Id }, collectionBook);
+                var collectionBook = await _collectionBookService.AddBookToCollectionAsync(
+                    userId, collectionId, addDto.BookId);
+
+                return CreatedAtAction(
+                    nameof(GetBookInCollection),
+                    new { userId, collectionId, bookId = collectionBook.BookId },
+                    collectionBook);
             }
             catch (ArgumentException ex)
             {
@@ -43,13 +70,16 @@ namespace LibraryApi.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<CollectionBookDto>> Update(int id, CreateCollectionBookDto updateDto)
+        [HttpPut("{collectionId}/books/{bookId}/move")]
+        public async Task<ActionResult<CollectionBookDto>> MoveBookToCollection(
+            int userId, int collectionId, int bookId, [FromBody] MoveBookToCollectionDto moveDto)
         {
             try
             {
-                var collectionBook = await _collectionBookService.ReplaceBookCollectionDto(id, updateDto);
-                return collectionBook == null ? NotFound() : Ok(collectionBook);
+                var result = await _collectionBookService.MoveBookToCollectionAsync(
+                    userId, collectionId, bookId, moveDto.TargetCollectionId);
+
+                return result == null ? NotFound("Книга не найдена в указанной коллекции") : Ok(result);
             }
             catch (ArgumentException ex)
             {
@@ -57,39 +87,34 @@ namespace LibraryApi.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        [HttpDelete("{collectionId}/books/{bookId}")]
+        public async Task<ActionResult> RemoveBookFromCollection(int userId, int collectionId, int bookId)
         {
-            var result = await _collectionBookService.DeleteAsync(id);
+            var result = await _collectionBookService.RemoveBookFromCollectionAsync(userId, bookId, collectionId);
             return result ? NoContent() : NotFound();
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> Search(string term, int collectionId, int userId)
+        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> SearchBooks(
+            int userId, [FromQuery] string term, [FromQuery] int collectionId)
         {
-            var collectionBooks = await _collectionBookService.SearchAsync(term, collectionId, userId);
-            return Ok(collectionBooks);
+            if (string.IsNullOrWhiteSpace(term))
+                return BadRequest("Поисковый запрос не может быть пустым");
+
+            var books = await _collectionBookService.SearchAsync(term, collectionId, userId);
+            return Ok(books);
         }
 
-        [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> GetByUserId(int userId)
+        [HttpGet("{collectionId}/books/count")]
+        public async Task<ActionResult<int>> GetBooksCount(int userId, int collectionId)
         {
-            var collectionBooks = await _collectionBookService.GetByUserIdAsync(userId);
-            return Ok(collectionBooks);
-        }
+            var collections = await _collectionBookService.GetByCollectionIdAsync(collectionId);
 
-        [HttpGet("book/{bookId}")]
-        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> GetByBookId(int bookId)
-        {
-            var collectionBooks = await _collectionBookService.GetByBookIdAsync(bookId);
-            return Ok(collectionBooks);
-        }
+            if (collections.Any() && collections.First().UserId != userId)
+                return Forbid();
 
-        [HttpGet("collection/{collectionId}")]
-        public async Task<ActionResult<IEnumerable<CollectionBookDto>>> GetByCollectionId(int collectionId)
-        {
-            var collectionBooks = await _collectionBookService.GetByCollectionIdAsync(collectionId);
-            return Ok(collectionBooks);
+            var count = await _collectionBookService.GetBooksCountInCollectionAsync(collectionId);
+            return Ok(count);
         }
     }
 }

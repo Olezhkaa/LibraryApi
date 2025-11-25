@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibraryApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users/{userId}/favorites")]
     public class FavoriteBookController : ControllerBase
     {
         private readonly IFavoriteBookService _favoriteBookService;
@@ -15,27 +15,44 @@ namespace LibraryApi.Controllers
             _favoriteBookService = favoriteBookService;
         }
 
+        // GET: api/users/1/favorites
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FavoriteBookDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<FavoriteBookDto>>> GetUserFavorites(int userId)
         {
-            var favoriteBooks = await _favoriteBookService.GetAllAsync();
-            return Ok(favoriteBooks);
+            var favorites = await _favoriteBookService.GetUserFavoritesAsync(userId);
+            return Ok(favorites);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FavoriteBookDto>> GetById(int id)
+        // GET: api/users/1/favorites/count
+        [HttpGet("count")]
+        public async Task<ActionResult<int>> GetUserFavoritesCount(int userId)
         {
-            var favoriteBook = await _favoriteBookService.GetByIdAsync(id);
-            return favoriteBook == null ? NotFound() : Ok(favoriteBook);
+            var count = await _favoriteBookService.GetUserFavoritesCountAsync(userId);
+            return Ok(count);
         }
 
+        // GET: api/users/1/favorites/5/check
+        [HttpGet("{bookId}/check")]
+        public async Task<ActionResult<bool>> IsBookInFavorites(int userId, int bookId)
+        {
+            var isInFavorites = await _favoriteBookService.IsBookInFavoritesAsync(userId, bookId);
+            return Ok(isInFavorites);
+        }
+
+        // POST: api/users/1/favorites
         [HttpPost]
-        public async Task<ActionResult<FavoriteBookDto>> Create(CreateFavoriteBookDto createDto)
+        public async Task<ActionResult<FavoriteBookDto>> AddToFavorites(
+            int userId, [FromBody] AddToFavoritesDto addDto)
         {
             try
             {
-                var favoriteBook = await _favoriteBookService.CreateAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = favoriteBook.Id }, favoriteBook);
+                var favoriteBook = await _favoriteBookService.AddToFavoritesAsync(
+                    userId, addDto.BookId, addDto.PriorityInList);
+
+                return CreatedAtAction(
+                    nameof(GetUserFavorites),
+                    new { userId },
+                    favoriteBook);
             }
             catch (ArgumentException ex)
             {
@@ -43,13 +60,15 @@ namespace LibraryApi.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<FavoriteBookDto>> Update(int id, int newPriority)
+        // PUT: api/users/1/favorites/5/priority
+        [HttpPut("{bookId}/priority")]
+        public async Task<ActionResult> UpdatePriority(int userId, int bookId, [FromBody] UpdateFavoritePriorityDto updateDto)
         {
             try
             {
-                var favoriteBook = await _favoriteBookService.ReplacePriorityInList(id, newPriority);
-                return favoriteBook == null ? NotFound() : Ok(favoriteBook);
+                var result = await _favoriteBookService.UpdatePriorityAsync(userId, bookId, updateDto.PriorityInList);
+
+                return result ? NoContent() : NotFound();
             }
             catch (ArgumentException ex)
             {
@@ -57,32 +76,13 @@ namespace LibraryApi.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+
+        // DELETE: api/users/1/favorites/5
+        [HttpDelete("{bookId}")]
+        public async Task<ActionResult> RemoveFromFavorites(int userId, int bookId)
         {
-            var result = await _favoriteBookService.DeleteAsync(id);
+            var result = await _favoriteBookService.RemoveFromFavoritesAsync(userId, bookId);
             return result ? NoContent() : NotFound();
-        }
-
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<FavoriteBookDto>>> Search(string term, int userId)
-        {
-            var favoriteBooks = await _favoriteBookService.SearchAsync(term, userId);
-            return Ok(favoriteBooks);
-        }
-
-        [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<FavoriteBookDto>>> GetByUserId(int userId)
-        {
-            var favoriteBooks = await _favoriteBookService.GetByUserIdAsync(userId);
-            return Ok(favoriteBooks);
-        }
-
-        [HttpGet("book/{bookId}")]
-        public async Task<ActionResult<IEnumerable<FavoriteBookDto>>> GetByBookId(int bookId)
-        {
-            var favoriteBooks = await _favoriteBookService.GetByBookIdAsync(bookId);
-            return Ok(favoriteBooks);
         }
 
     }
