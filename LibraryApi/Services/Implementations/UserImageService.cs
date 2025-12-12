@@ -44,6 +44,10 @@ namespace LibraryApi.Services.Implementations
             await createDto.Image.CopyToAsync(memoryStream);
             var fileData = memoryStream.ToArray();
 
+            //Удаляем прошлое фото
+            var imageOld = await _userImageRepository.GetByUserIdAsync(userId);
+            if (imageOld != null) await _userImageRepository.DeleteAsync(imageOld.Id);
+
             // Создаем сущность
             var image = new UserImage(
                 userId: userId,

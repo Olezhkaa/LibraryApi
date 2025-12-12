@@ -271,3 +271,4 @@ C:\Users\OlegFadeev\Documents\Develop\Lib\LibraryApi\libraryApi\bin\Debug\net8.0
 C:\Users\OlegFadeev\Documents\Develop\Lib\LibraryApi\libraryApi\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\OlegFadeev\Documents\Develop\Lib\LibraryApi\libraryApi\obj\Debug\net8.0\LibraryApi.sourcelink.json
 C:\Users\OlegFadeev\Documents\Develop\Lib\LibraryApi\libraryapi\bin\Debug\net8.0\SixLabors.ImageSharp.dll
+D:\Projects\LibraryAPI\LibraryApi\LibraryApi\bin\Debug\net8.0\SixLabors.ImageSharp.dll

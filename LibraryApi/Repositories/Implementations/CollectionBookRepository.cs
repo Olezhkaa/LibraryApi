@@ -73,6 +73,14 @@ namespace LibraryApi.Repositories.Implementations
                                uc.IsActive);
         }
 
+        public async Task<bool> ExistsAsyncInOtherCollection(int userId, int bookId)
+        {
+            return await _dbSet
+                .AnyAsync(uc => uc.UserId == userId &&
+                               uc.BookId == bookId &&
+                               uc.IsActive);
+        }
+
         public async Task<bool> RemoveBookFromCollectionAsync(int userId, int bookId, int collectionId)
         {
             var collectionBook = await _dbSet

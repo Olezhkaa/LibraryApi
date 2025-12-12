@@ -42,7 +42,7 @@ namespace LibraryApi.Repositories.Implementations
         {
             return await _dbSet
                 .Include(b => b.Author)
-                .Include(b => b.Author)
+                .Include(b => b.Genre)
                 .Where(b => b.GenreId == genreId && b.IsActive)
                 .OrderBy(b => b.Title)
                 .ToListAsync();

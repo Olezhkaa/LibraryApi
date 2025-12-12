@@ -20,5 +20,8 @@ namespace LibraryApi.DTOs.Users
 
         [StringLength(100, ErrorMessage = "Отчество должно быть не более 100 символов")]
         public string? MiddleName { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

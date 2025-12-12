@@ -3363,11 +3363,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\libraryapi\\LibraryApi.csproj",
+      "projectUniqueName": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
       "projectName": "LibraryApi",
-      "projectPath": "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\libraryapi\\LibraryApi.csproj",
+      "projectPath": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
       "packagesPath": "C:\\Users\\OlegFadeev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\OlegFadeev\\Documents\\Develop\\Lib\\LibraryApi\\libraryapi\\obj\\",
+      "outputPath": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\OlegFadeev\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3393,8 +3393,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -3430,24 +3429,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.20, 8.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.20, 8.0.20]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.20, 8.0.20]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.20, 8.0.20]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -3456,7 +3437,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

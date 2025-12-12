@@ -50,12 +50,12 @@ namespace LibraryApi.Services.Implementations
             var author = await _authorRepository.GetByIdAsync(id);
             if (author == null) return null;
 
-            if (updateDto.LastName != null || updateDto.LastName != "string") author.LastName = updateDto.LastName!;
-            if (updateDto.FirstName != null || updateDto.FirstName != "string") author.FirstName = updateDto.FirstName!;
-            if (updateDto.MiddleName != null || updateDto.MiddleName != "string") author.MiddleName = updateDto.MiddleName!;
-            if (updateDto.DateOfBirh != null) author.DateOfBirth = updateDto.DateOfBirh!;
-            if (updateDto.DateOfDeath != null) author.DateOfDeath = updateDto.DateOfDeath!;
-            if (updateDto.Country != null || updateDto.LastName != "string") author.Country = updateDto.Country!;
+            if (!string.IsNullOrEmpty(updateDto.LastName) && updateDto.LastName != "string") author.LastName = updateDto.LastName!;
+            if (!string.IsNullOrEmpty(updateDto.FirstName) && updateDto.FirstName != "string") author.FirstName = updateDto.FirstName!;
+            if (!string.IsNullOrEmpty(updateDto.MiddleName) && updateDto.MiddleName != "string") author.MiddleName = updateDto.MiddleName!;
+            if (!string.IsNullOrEmpty(updateDto.DateOfBirh.ToString())) author.DateOfBirth = updateDto.DateOfBirh!;
+            if (!string.IsNullOrEmpty(updateDto.DateOfDeath.ToString())) author.DateOfDeath = updateDto.DateOfDeath!;
+            if (!string.IsNullOrEmpty(updateDto.Country) && updateDto.LastName != "string") author.Country = updateDto.Country!;
 
             var update = await _authorRepository.UpdateAsync(author);
             return MapToDto(update);

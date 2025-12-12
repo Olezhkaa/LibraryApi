@@ -65,10 +65,10 @@ namespace LibraryApi.Services.Implementations
             }
 
             //Обновление полей
-            if (!string.IsNullOrEmpty(updateDto.LastName) && updateDto.LastName != "") user.LastName = updateDto.LastName;
-            if (!string.IsNullOrEmpty(updateDto.FirstName) && updateDto.FirstName != "") user.FirstName = updateDto.FirstName;
-            if (!string.IsNullOrEmpty(updateDto.MiddleName) && updateDto.MiddleName != "") user.MiddleName = updateDto.MiddleName;
-            if (!string.IsNullOrEmpty(updateDto.Email) && updateDto.Email != "") user.Email = updateDto.Email;
+            if (!string.IsNullOrEmpty(updateDto.LastName) && updateDto.LastName != "string") user.LastName = updateDto.LastName;
+            if (!string.IsNullOrEmpty(updateDto.FirstName) && updateDto.FirstName != "string") user.FirstName = updateDto.FirstName;
+            if (!string.IsNullOrEmpty(updateDto.MiddleName) && updateDto.MiddleName != "string") user.MiddleName = updateDto.MiddleName;
+            if (!string.IsNullOrEmpty(updateDto.Email) && updateDto.Email != "user@example.com") user.Email = updateDto.Email;
 
             var updated = await _userRepository.UpdateAsync(user);
             var userResult = await _userRepository.GetByIdAsync(updated.Id);
@@ -97,7 +97,7 @@ namespace LibraryApi.Services.Implementations
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null) return false;
 
-            if (!_userRepository.VerifyPassword(currentPassword, newPassword)) return false;
+            if (!_userRepository.VerifyPassword(currentPassword, user.PasswordHash)) return false;
 
             user.PasswordHash = _userRepository.HashPassword(newPassword);
             await _userRepository.UpdateAsync(user);

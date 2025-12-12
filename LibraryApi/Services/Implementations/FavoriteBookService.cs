@@ -45,7 +45,7 @@ namespace LibraryApi.Services.Implementations
             }
 
             // Если приоритет не указан, ставим следующим после максимального
-            if (priority <= 0)
+            if (priority <= 1)
             {
                 var userFavoritesCount = await _favoriteBookRepository.GetUserFavoritesCountAsync(userId);
                 priority = userFavoritesCount + 1;

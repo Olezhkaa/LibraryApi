@@ -9,10 +9,10 @@ namespace LibraryApi.DTOs.Authors
 {
     public class UpdateAuthorDto
     {
-        [StringLength(100, ErrorMessage = "Фамииля должна быть не менее 2 и не более 100 символов")]
+        [StringLength(100, ErrorMessage = "Фамииля должна быть не более 100 символов")]
         public string? FirstName { get; set; }
 
-        [StringLength(100, ErrorMessage = "Имя должно быть не менее 2 и не более 100 символов")]
+        [StringLength(100, ErrorMessage = "Имя должно быть не не более 100 символов")]
         public string? LastName { get; set; }
 
         [StringLength(100, ErrorMessage = "Отчество должно быть не более 100 символов")]

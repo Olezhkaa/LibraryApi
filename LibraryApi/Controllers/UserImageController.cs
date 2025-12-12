@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibraryApi.Controllers
 {
     [ApiController]
-    [Route("api/users/{userId}/images")]
+    [Route("api/users/{userId}/image")]
     public class UserImageController : ControllerBase
     {
         private readonly IUserImageService _userImageService;
@@ -20,18 +20,10 @@ namespace LibraryApi.Controllers
         public async Task<ActionResult<IEnumerable<UserImageDto>>> GetByUserId(int userId)
         {
             var image = await _userImageService.GetByUserIdAsync(userId);
-            return image == null ? NotFound() : Ok(image);
-        }
+            if(image == null) return NotFound();
 
-        [HttpGet("{imageId}")]
-        public async Task<ActionResult> GetImage(int userId, int imageId)
-        {
-            var image = await _userImageService.GetByIdAsync(imageId);
-            if (image == null || image.UserId != userId)
-                return NotFound();
-
-            var fileData = await _userImageService.GetFileDataAsync(imageId);
-            var contentType = await _userImageService.GetContentTypeAsync(imageId);
+            var fileData = await _userImageService.GetFileDataAsync(image.Id);
+            var contentType = await _userImageService.GetContentTypeAsync(image.Id);
 
             if (fileData == null || contentType == null)
                 return NotFound();
@@ -46,7 +38,7 @@ namespace LibraryApi.Controllers
             try
             {
                 var image = await _userImageService.CreateAsync(userId, createDto);
-                return CreatedAtAction(nameof(GetImage), new { userId, imageId = image.Id }, image);
+                return CreatedAtAction(nameof(GetByUserId), new { userId }, image);
             }
             catch (ArgumentException ex)
             {

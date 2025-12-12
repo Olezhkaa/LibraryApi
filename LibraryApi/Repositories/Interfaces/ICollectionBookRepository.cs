@@ -10,6 +10,7 @@ namespace LibraryApi.Repositories.Interfaces
         Task<CollectionBook?> GetByUserAndBookAsync(int userId, int bookId);
         Task<CollectionBook?> GetByUserBookAndCollectionAsync(int userId, int bookId, int collectionId);
         Task<bool> ExistsAsync(int userId, int bookId, int collectionId);
+        Task<bool> ExistsAsyncInOtherCollection(int userId, int bookId);
         Task<bool> RemoveBookFromCollectionAsync(int userId, int bookId, int collectionId);
         Task<int> GetBooksCountInCollectionAsync(int collectionId);
         Task<IEnumerable<CollectionBook>> GetWithDetailsByCollectionAsync(int collectionId);

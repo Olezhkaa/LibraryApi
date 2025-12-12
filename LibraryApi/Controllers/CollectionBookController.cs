@@ -27,11 +27,6 @@ namespace LibraryApi.Controllers
         public async Task<ActionResult<IEnumerable<CollectionBookDto>>> GetBooksInCollection(int userId, int collectionId)
         {
             var books = await _collectionBookService.GetByCollectionIdAsync(collectionId);
-
-            // Проверяем что коллекция принадлежит пользователю
-            if (books.Any() && books.First().UserId != userId)
-                return Forbid();
-
             return Ok(books);
         }
 
@@ -109,9 +104,6 @@ namespace LibraryApi.Controllers
         public async Task<ActionResult<int>> GetBooksCount(int userId, int collectionId)
         {
             var collections = await _collectionBookService.GetByCollectionIdAsync(collectionId);
-
-            if (collections.Any() && collections.First().UserId != userId)
-                return Forbid();
 
             var count = await _collectionBookService.GetBooksCountInCollectionAsync(collectionId);
             return Ok(count);

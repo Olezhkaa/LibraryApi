@@ -47,6 +47,14 @@ namespace LibraryApi.Services.Implementations
                 throw new ArgumentException("Эта книга уже добавлена в данную коллекцию");
             }
 
+            if (await _collectionBookRepository.ExistsAsyncInOtherCollection(userId, bookId))
+            {
+                
+                var bookInCollectionUser = await _collectionBookRepository.GetByUserAndBookAsync(userId, bookId);
+                var move = await MoveBookToCollectionAsync(userId, bookInCollectionUser!.CollectionId ,bookId, collectionId);
+                if(move != null) return move;
+            }
+
             var collectionBook = new CollectionBook
             (
                 userId: userId,

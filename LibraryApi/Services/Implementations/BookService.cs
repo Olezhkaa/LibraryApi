@@ -73,10 +73,10 @@ namespace LibraryApi.Services.Implementations
             }
 
             //Замена полей
-            if (updateDto.Title != null || updateDto.Title != "string") book.Title = updateDto.Title!;
-            if (updateDto.AuthorId != null || updateDto.AuthorId != 0) book.AuthorId = (int)updateDto.AuthorId!;
-            if (updateDto.GenreId != null || updateDto.AuthorId != 0) book.GenreId = (int)updateDto.GenreId!;
-            if (updateDto.Description != null || updateDto.Description != "string") book.Description = updateDto.Description!;
+            if (!string.IsNullOrEmpty(updateDto.Title) && updateDto.Title != "string") book.Title = updateDto.Title!;
+            if (!string.IsNullOrEmpty(updateDto.AuthorId.ToString()) && updateDto.AuthorId != 0) book.AuthorId = (int)updateDto.AuthorId!;
+            if (!string.IsNullOrEmpty(updateDto.GenreId.ToString()) && updateDto.AuthorId != 0) book.GenreId = (int)updateDto.GenreId!;
+            if (!string.IsNullOrEmpty(updateDto.Description) && updateDto.Description != "string") book.Description = updateDto.Description!;
 
             var updated = await _bookRepository.UpdateAsync(book);
             var bookResult = await _bookRepository.GetByIdWithDetailsAsync(updated.Id);
