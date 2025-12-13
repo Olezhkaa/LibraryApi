@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: library-postgres  
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: LibraryDB
+    ports:
+      - "5432:5432"  
+    volumes:
+      - postgres_data:/var/lib/postgresql  
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d LibraryDB" ]  
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s  
+    restart: unless-stopped
+    networks:
+      - app-network  
+
+  api:
+    build: .\LibraryApi
+    container_name: library-api
+    ports:
+      - "5050:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_PRINT_TELEMETRY_MESSAGE=false
+      # Важно: настройки подключения к БД
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=LibraryDB;Username=admin;Password=admin
+      - ConnectionStrings__Postgres=Host=postgres;Port=5432;Database=LibraryDB;Username=admin;Password=admin
+    depends_on:
+      postgres:
+        condition: service_healthy  
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:  
+    driver: local
