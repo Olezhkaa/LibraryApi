@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibraryApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/genres")]
     public class GenreController : ControllerBase
     {
         private readonly IGenreService _genreService;

@@ -8,6 +8,18 @@ using LibraryApi.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Разрешаем ВСЕ запросы (для разработки)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()    // Разрешить любой домен
+                   .AllowAnyMethod()    // Разрешить любые методы (GET, POST и т.д.)
+                   .AllowAnyHeader();   // Разрешить любые заголовки
+        });
+});
+
 // PostgreSQL connection
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -44,6 +56,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+//Подключаем CORS
+app.UseCors("AllowAll");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -51,7 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
