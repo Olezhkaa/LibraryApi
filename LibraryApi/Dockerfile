@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 
 # Шаг 3: Открываем порты
-EXPOSE 80
+EXPOSE 8080
 EXPOSE 443
 
 # Шаг 4: Этап сборки
