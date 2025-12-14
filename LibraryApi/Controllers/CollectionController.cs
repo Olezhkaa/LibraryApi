@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibraryApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/collections")]
     public class CollectionController : ControllerBase
     {
         private readonly ICollectionService _collectionService;
