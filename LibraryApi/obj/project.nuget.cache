@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oC/WdiIeCaI=",
+  "dgSpecHash": "4HFB1YVZBUk=",
   "success": true,
-  "projectFilePath": "D:\\Projects\\LibraryAPI\\LibraryApi\\libraryapi\\LibraryApi.csproj",
+  "projectFilePath": "D:\\Projects\\LibraryAPI\\libraryapi\\libraryapi\\LibraryApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OlegFadeev\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\OlegFadeev\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",

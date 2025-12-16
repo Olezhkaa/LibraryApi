@@ -3363,11 +3363,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
+      "projectUniqueName": "D:\\Projects\\LibraryAPI\\libraryapi\\libraryapi\\LibraryApi.csproj",
       "projectName": "LibraryApi",
-      "projectPath": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\LibraryApi.csproj",
+      "projectPath": "D:\\Projects\\LibraryAPI\\libraryapi\\libraryapi\\LibraryApi.csproj",
       "packagesPath": "C:\\Users\\OlegFadeev\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\LibraryAPI\\LibraryApi\\LibraryApi\\obj\\",
+      "outputPath": "D:\\Projects\\LibraryAPI\\libraryapi\\libraryapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\OlegFadeev\\AppData\\Roaming\\NuGet\\NuGet.Config"
