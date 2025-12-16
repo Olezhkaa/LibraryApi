@@ -2,7 +2,7 @@
 # ***Система управления библиотекой***
 
 <p align="center">
-![Изображение](images/image.png "LibraryApi HomePage")
+<img src="https://github.com/Olezhkaa/LibraryApi/blob/main/images/image.png" width="50%" height="50%">
 </p>
 
 ## **ЗАПУСК И ОСТАНОВКА**
