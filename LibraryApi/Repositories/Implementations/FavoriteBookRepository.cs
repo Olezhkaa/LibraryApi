@@ -75,7 +75,7 @@ namespace LibraryApi.Repositories.Implementations
 
             if (favoriteBook == null) return false;
 
-            favoriteBook.IsActive = false;
+            _dbSet.Remove(favoriteBook);
             await _context.SaveChangesAsync();
             return true;
         }

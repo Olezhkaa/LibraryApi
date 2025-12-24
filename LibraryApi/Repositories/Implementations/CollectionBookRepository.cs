@@ -91,7 +91,7 @@ namespace LibraryApi.Repositories.Implementations
 
             if (collectionBook == null) return false;
 
-            collectionBook.IsActive = false;
+            _dbSet.Remove(collectionBook);
             await _context.SaveChangesAsync();
             return true;
         }
